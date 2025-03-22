@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SafariConnect • Book Ride</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+
+<body>
+	<header>
+		<div class="logo">
+			<span class="navText">SafariConnect</span>
+		</div>
+		<nav>
+			<ul>
+				<li class="navBar"><a href="./home.html">Home</a></li>
+				<li class="navBar"><a href="./ride.html" class="activePage">Book Ride</a></li>					
+				<li class="navBar"><a href="logout.php">Logout</a></li>
+
+			</ul>
+		</nav>
+	</header>
+
+	<div id="bodyDiv" style="display: inline-block;">
+		<iframe width="450" height="350"
+			src="https://www.openstreetmap.org/export/embed.html?bbox=-0.4622239479795099%2C39.41359954473846%2C-0.2905625710263849%2C39.525575588307476&amp;layer=mapnik&amp;marker=29.469610091927976%2C-0.37639325950294733"
+			style="border-radius: 9px;"></iframe><br /><small><a
+				href="https://www.openstreetmap.org/?mlat=39.4696&amp;mlon=-0.3764#map=13/39.4696/-0.3764">View Larger
+				Map</a></small>
+		<br>
+		<form id="registrationForm" style="margin-top: 22px; margin: auto;text-align: left;">
+			<label>Name:</label>
+			<input type="text" id="name" name="name" required placeholder=" Full Name...">
+			<br>
+			<label>Pickup Location:</label>
+			<input type="text" id="pickup" name="pickup" required placeholder=" Pickup...">
+			<br>
+			<label>Drop-off Location:</label>
+			<input type="text" id="drop" name="drop" required placeholder=" Drop-off...">
+			<br>
+			<input id="submitBtn" type="submit" value="Book Ride">
+		</form>
+	</div>
+
+	<footer>
+		<p>&copy; 2025 SafariConnect | <a href="./aboutus.html" class="footerLink">About Us</a></p>
+	</footer>
+	<script>
+		function showInfo(event) {
+			const infoDiv = event.currentTarget.querySelector('.info');
+			infoDiv.style.opacity = '1';
+		}
+
+		function hideInfo(event) {
+			const infoDiv = event.currentTarget.querySelector('.info');
+			infoDiv.style.opacity = '0';
+		}
+	</script>
+</body>
+
+</html>
