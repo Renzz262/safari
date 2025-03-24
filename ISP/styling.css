@@ -4,7 +4,89 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
+header {
+    padding: 15px 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--blue);
+    color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
 
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.navText {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    padding-left: 40px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li:last-child {
+    margin-right: 40px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 9px;
+    border: 2px solid transparent;
+    border-radius: 0px;
+    transition: 0.2s;
+}
+
+nav ul li a:hover {
+    border-radius: 9px;
+    border: 2px solid white;
+}
+
+nav ul li a:active {
+    border-radius: 9px;
+    color: var(--blue);
+    background-color: white;
+    border: 2px solid white;
+}
+
+nav ul li {
+    scale: 1;
+    transition: 0.2s;
+}
+
+nav ul li:active,
+.auth-form .btn:active {
+    scale: 0.95;
+}
+
+.activePage {
+    border-bottom: solid white 2px;
+}
+
+.navBar {
+    padding: 0;
+    padding-top: 10px;
+}
+
+#bodyHeader {
+    margin-left: 20px;
+    text-align: left !important;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+}
 body {
     background: linear-gradient(to right, #007BFF, #00BFFF);
     display: flex;
