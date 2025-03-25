@@ -258,3 +258,25 @@ body {
 body {
     padding-top: 70px; /* Creates space below the heading */
 }
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+.input-group select {
+    width: 100%; /* Match input width */
+    padding: 10px; /* Same padding as inputs */
+    font-size: 16px; /* Match input text size */
+    border: 2px solid #ccc; /* Match border color */
+    border-radius: 5px; /* Rounded corners */
+    outline: none; /* Remove default browser outline */
+    background-color: white; /* Ensure background matches */
+    color: #333; /* Text color */
+}
+
+/* Optional: Add hover and focus effects */
+.input-group select:focus {
+    border-color: #007bff; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Soft glow effect */
+}
