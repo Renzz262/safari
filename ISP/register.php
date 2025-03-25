@@ -48,3 +48,35 @@ if(isset($_POST['signIn'])){
 
 }
 ?>
+
+<?php
+include 'connect.php'; // Ensure database connection is included
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bookRide'])) {
+    // Get and sanitize input values
+    $name = mysqli_real_escape_string($conn, trim($_POST['name']));
+    $pickup = mysqli_real_escape_string($conn, trim($_POST['pickup']));
+    $drop = mysqli_real_escape_string($conn, trim($_POST['drop']));
+
+    // Check if values are empty
+    if (empty($name) || empty($pickup) || empty($drop)) {
+        die("Error: All fields are required.");
+    }
+
+    // Insert data into the bookings table
+    $sql = "INSERT INTO bookings (name, pickup, dropoff) VALUES ('$name', '$pickup', '$drop')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Booking successful!";
+    } else {
+        echo "Database Error: " . $conn->error;
+    }
+}
+
+$conn->close(); // Close database connection
+?>
+
+
+
+
+    
