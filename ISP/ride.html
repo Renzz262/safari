@@ -32,7 +32,7 @@
 				href="https://www.openstreetmap.org/?mlat=39.4696&amp;mlon=-0.3764#map=13/39.4696/-0.3764">View Larger
 				Map</a></small>
 		<br>
-		<form id="registrationForm" style="margin-top: 22px; margin: auto;text-align: left;">
+		<form id="registrationForm" action="register.php" method="POST" style="margin-top: 22px; margin: auto;text-align: left;">
 			<label>Name:</label>
 			<input type="text" id="name" name="name" required placeholder=" Full Name...">
 			<br>
@@ -42,7 +42,7 @@
 			<label>Drop-off Location:</label>
 			<input type="text" id="drop" name="drop" required placeholder=" Drop-off...">
 			<br>
-			<input id="submitBtn" type="submit" value="Book Ride">
+			<input id="submitBtn" type="submit" name="bookRide" value="Book Ride">
 		</form>
 	</div>
 
@@ -60,6 +60,12 @@
 			infoDiv.style.opacity = '0';
 		}
 	</script>
+	<script>
+document.getElementById("registrationForm").addEventListener("submit", function(event) {
+    console.log("Form submitted!");
+});
+</script>
+
 </body>
 
 </html>
