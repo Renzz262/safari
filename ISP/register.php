@@ -1,11 +1,11 @@
 <?php
 session_start();
-include 'connect.php'; // ✅ Ensure database connection is included
-
+include 'connect.php';
 if (isset($_POST['signUp'])) {
     $firstName = trim($_POST['fName']);
     $lastName = trim($_POST['lName']);
     $email = trim($_POST['email']);
+    $accountType = trim($_POST['accountType']);
 
     if (!empty($_POST['password'])) {
         $password = $_POST['password'];
@@ -14,8 +14,14 @@ if (isset($_POST['signUp'])) {
         die("Error: Password field is empty.");
     }
 
+    // ✅ Check if email already exists
     $checkEmail = "SELECT * FROM users WHERE email = ?";
     $stmt = $conn->prepare($checkEmail);
+    
+    if (!$stmt) {
+        die("SQL Error (Email Check): " . $conn->error);
+    }
+
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -23,18 +29,24 @@ if (isset($_POST['signUp'])) {
     if ($result->num_rows > 0) {
         echo "<script>alert('Email Address Already Exists!'); window.location.href='register.html';</script>";
     } else {
-        $insertQuery = "INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)";
+        $insertQuery = "INSERT INTO users (firstName, lastName, email, password, accountType) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($insertQuery);
-        $stmt->bind_param("ssss", $firstName, $lastName, $email, $hashedPassword);
+
+        if (!$stmt) {
+            die("SQL Error (Insert): " . $conn->error);
+        }
+
+        $stmt->bind_param("sssss", $firstName, $lastName, $email, $hashedPassword, $accountType);
 
         if ($stmt->execute()) {
             echo "<script>alert('Account created successfully! Please log in.'); window.location.href='login.html';</script>";
             exit();
         } else {
-            echo "Error: " . $conn->error;
+            echo "Database Error: " . $stmt->error;
         }
     }
 }
+
 
 // === HANDLE LOGIN ===
 if (isset($_POST['signIn'])) {
@@ -102,4 +114,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bookRide'])) {
     }
 }
 ?>
-    
