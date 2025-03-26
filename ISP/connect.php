@@ -1,15 +1,4 @@
 <?php
-
-$host="localhost";
-$user="root";
-$pass="";
-$db="safari";
-$conn=new mysqli($host,$user,$pass,$db);
-if($conn->connect_error){
-    echo "Failed to connect DB".$conn->connect_error;
-}
-?>
-<?php
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -17,9 +6,8 @@ $db = "safari";
 
 $conn = new mysqli($host, $user, $pass, $db);
 
+// Check connection
 if ($conn->connect_error) {
     die("Database connection failed: " . $conn->connect_error);
-} else {
-    echo "Database connected successfully!";
 }
 ?>
