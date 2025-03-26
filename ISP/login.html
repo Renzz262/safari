@@ -1,103 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafariConnect • Register & Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styling.css">
-    <header>
-    <div class="logo">
-    <link rel="icon" href="https://media.istockphoto.com/id/2070968418/vector/lettering-va-brand-symbol-design.jpg?s=612x612&w=0&k=20&c=5-HWZ5Bf2DDVdcUT1fK51F6TxixVZhAYaBZLJOSug8c=">
-
-      <span class="navText">SafariConnect</span>
-    </div>
-    <nav>
-      <ul>
-                 
-        <li class="navBar"><a href="login.html">Sign Up</a></li>
-
-      </ul>
-    </nav>
-  </header>
+    <title>SafariConnect • Login</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 </head>
+
 <body>
-    <div class="container" id="signup" style="display:none;">
-      <h1 class="form-title">Sign Up</h1>
-      <form method="post" action="register.php">
-        <div class="input-group">
-           <i class="fas fa-user"></i>
-           <input type="text" name="fName" id="fName" placeholder="First Name" required>
-           <label for="fname">First Name</label>
-           <div class="error-message"></div>
+    <header>
+        <div class="logo">
+            <span class="navText">SafariConnect</span>
         </div>
-        <div class="input-group">
-            <i class="fas fa-user"></i>
-            <input type="text" name="lName" id="lName" placeholder="Last Name" required>
-            <label for="lName">Last Name</label>
-            <div class="error-message"></div>
-        </div>
-       <div class="input-group">
-    <i class="fas fa-user"></i>
-    <label for="accountType" style="color: floralwhite;">Account Type:</label>
-    <select name="accountType" id="accountType">
-        <option value="">-- Select Account Type --</option>
-        <option value="commuter">---Customer</option>
-        <option value="driver">---Driver</option>
-        <option value="admin">---Administrator</option>
-    </select>
-    <label for="accountType">Account Type</label>
-    <div class="error-message"></div>
-</div>
+        <nav>
+            <ul>
+                <li class="navBar"><a href="./home.html">Home</a></li>
+                <li class="navBar"><a href="./ride.html">Book Ride</a></li>
+                <li class="navBar"><a href="./login.html" class="activePage">Login</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <div class="input-group">
-            <i class="fas fa-envelope"></i>
-            <input type="email" name="email" id="signup-email" placeholder="Email" required>
-            <label for="signup-email">Email</label>
-            <div class="error-message"></div>
-        </div>
-        <div class="input-group">
-            <i class="fas fa-lock"></i>
-            <input type="password" name="password" id="signup-password" placeholder="Password" required>
-            <label for="signup-password">Password</label>
-            <div class="error-message"></div>
-        </div>
-       <input type="submit" class="btn" value="Sign Up" name="signUp">
-      </form>
-      <div class="links">
-        <p>Already Have Account ?</p>
-        <button id="signInButton">Sign In</button>
-      </div>
-    </div>
+    <main class="auth-container">
+        <div class="auth-box">
+            <div class="auth-form">
+                <div class="container" id="signup" style="display:none;">
+                    <h1 class="form-title">Register</h1>
+                    <form method="post" action="register.php">
+                        <div class="input-group">
+                            <label for="fname"><i class="ti ti-user-filled"></i></i></label>
+                            <input type="text" name="fName" id="fName" placeholder="First Name" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" name="lName" id="lName" placeholder="Last Name" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label>Account Type: <i class="ti ti-settings-filled"></i></label>
+                            <select>
+                                <option disabled>--Select User --</option>
+                                <option>Commuter</option>
+                                <option>Driver</option>
+                                <option>Administrator</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label for="signup-email">Email <i class="ti ti-mail-filled"></i></label>
+                            <input type="email" name="email" id="email" placeholder="Email" required>
+                            <span class="error-message"></span>
+                        </div>
+             <div class="input-group">
+            <label for="signup-password">Password <i class="ti ti-lock-filled"></i></label>
+                <input type="password" name="password" id="password" placeholder="Password" required> <span class="error-message"></span>
+                        </div>
+                        <input type="submit" id="submitBtn" value="Sign Up" name="signUp">
+                    </form>
+                    <div class="links">
+                        <p>Already Have Account ?</p>
+                        <button id="signInButton">Sign In</button>
+                    </div>
+                </div>
 
-    <div class="container" id="signIn">
-        <h1 class="form-title">Sign In</h1>
-        <form method="post" action="register.php">
-          <div class="input-group">
-              <i class="fas fa-envelope"></i>
-              <input type="email" name="email" id="signin-email" placeholder="Email" required>
-              <label for="signin-email">Email</label>
-              <div class="error-message"></div>
-          </div>
-          <div class="input-group">
-              <i class="fas fa-lock"></i>
-              <input type="password" name="password" id="signin-password" placeholder="Password" required>
-              <label for="signin-password">Password</label>
-              <div class="error-message"></div>
-          </div>
-          <p class="recover">
-            <a href="#">Recover Password</a>
-          </p>
-         <input type="submit" class="btn" value="Sign In" name="signIn">
-        </form>
-        <div class="links">
-          <p>Don't have account yet?</p>
-          <button id="signUpButton">Sign Up</button>
+                <div class="container" id="signIn">
+                    <h1 class="form-title">Sign In</h1>
+                    <form method="post" action="register.php">
+                        <div class="input-group">
+                            <label for="signin-email">Email <i class="ti ti-mail-filled"></i></label>
+                            <input type="email" name="email" id="email" placeholder="Email" required>
+                            <span class="error-message"></span>
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <label for="signin-password">Password <i class="ti ti-lock-filled"></i></label>
+                            <input type="password" name="password" id="signin-password" placeholder="Password" required>
+                             <span class="error-message"></span>
+                        </div>
+                        <input type="submit" id="submitBtn" value="Sign In" name="signIn">
+                    </form>
+                    <div class="loginRedirect">
+                        <p>Don't have account yet?</p>
+                        <button id="signUpButton" style="margin: 0 !important;">Sign Up</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <script>
-    console.log("Inline JS is working!");
-</script>
-      <script src="script1.js"></script>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 SafariConnect | <a href="./aboutus.html" class="footerLink">About Us</a></p>
+    </footer>
 </body>
+<script src="script.js"></script>
+
 </html>
