@@ -1,6 +1,17 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+echo "Debug: register.php is loading!";
 session_start();
 include 'connect.php';
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+} else {
+    echo "Debug: Database connected successfully!";
+}
+
 if (isset($_POST['signUp'])) {
     $firstName = trim($_POST['fName']);
     $lastName = trim($_POST['lName']);
@@ -78,39 +89,82 @@ if (isset($_POST['signIn'])) {
 
 // === HANDLE RIDE BOOKING ===
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bookRide'])) {
-    // Ensure user is logged in
-    if (!isset($_SESSION['user_id'])) {
-        die("Access denied. Please log in.");
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+echo "Debug: register.php is loading!<br>";
+
+// ✅ Ensure session is started only once
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// ✅ Check if database connection is successful
+include 'connect.php';
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+} else {
+    echo "Debug: Database connected successfully!<br>";
+}
+
+// ✅ Check if the form is submitted properly
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    echo "Debug: Form submitted via POST!<br>";
+
+    // ✅ Ensure the submit button was clicked
+    if (!isset($_POST['bookRide'])) {
+        die("Error: Submit button 'bookRide' is missing.");
     }
 
-    $name = mysqli_real_escape_string($conn, trim($_POST['name']));
-    $pickup = mysqli_real_escape_string($conn, trim($_POST['pickup']));
-    $drop = mysqli_real_escape_string($conn, trim($_POST['drop']));
+    // ✅ Ensure user is logged in
+    if (!isset($_SESSION['user_id'])) {
+        die("Error: Access denied. Please log in.");
+    }
 
-    // Check if values are empty
+    // ✅ Validate form data
+    if (!isset($_POST['name'], $_POST['pickup'], $_POST['drop'])) {
+        die("Error: Missing required form fields.");
+    }
+
+    $name = trim($_POST['name']);
+    $pickup = trim($_POST['pickup']);
+    $drop = trim($_POST['drop']);
+
     if (empty($name) || empty($pickup) || empty($drop)) {
         die("Error: All fields are required.");
     }
 
-    // ✅ Insert ride booking (FIXED QUERY)
+    echo "<p>Debug: Name = " . htmlspecialchars($name) . "</p>";
+    echo "<p>Debug: Pickup = " . htmlspecialchars($pickup) . "</p>";
+    echo "<p>Debug: Dropoff = " . htmlspecialchars($drop) . "</p>";
+
+    // ✅ Insert into database
     $sql = "INSERT INTO bookings (name, pickup, dropoff) VALUES (?, ?, ?)";
-    
     $stmt = $conn->prepare($sql);
+
     if (!$stmt) {
-        die("SQL Error: " . $conn->error);
+        die("SQL Error (Prepare Failed): " . $conn->error);
     }
 
     $stmt->bind_param("sss", $name, $pickup, $drop);
 
     if ($stmt->execute()) {
-       echo '<script>
-    alert("Ride booked successfully!");
-    window.location.href = "receipt.php?ride_id=' . $stmt->insert_id . '";
-</script>';
+        $ride_id = $stmt->insert_id;
+        echo "<p>Debug: Ride ID Generated = " . $ride_id . "</p>";
 
+        if (!$ride_id) {
+            die("Error: Ride ID not generated. Check database structure.");
+        }
+
+        // ✅ Redirect to receipt.php with ride_id
+        header("Location: receipt.php?ride_id=" . urlencode($ride_id));
+        exit();
     } else {
-        echo "Database Error: " . $stmt->error;
+        die("Database Insertion Failed: " . $stmt->error);
     }
+} else {
+    die("Error: Invalid request. Debug: Request method was " . $_SERVER["REQUEST_METHOD"]);
 }
 ?>
