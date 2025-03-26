@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-    --blue: rgb(9, 117, 219);
+    --blue: #007BFF;
+    --lblue: #00BFFF;
 }
 
 body {
@@ -15,7 +16,7 @@ header {
     padding: 15px 10px;
     display: flex;
     justify-content: space-between;
-    background-color: var(--blue);
+    background: linear-gradient(to right, var(--blue), var(--lblue));
     color: white;
     position: fixed;
     top: 0;
@@ -63,7 +64,7 @@ nav ul li a:hover {
 
 nav ul li a:active {
     border-radius: 9px;
-    color: var(--blue);
+    color: var(--lblue);
     background-color: white;
     border: 2px solid white;
 }
@@ -73,8 +74,7 @@ nav ul li {
     transition: 0.2s;
 }
 
-nav ul li:active,
-.auth-form .btn:active {
+nav ul li:active {
     scale: 0.95;
 }
 
@@ -109,72 +109,6 @@ nav ul li:active,
     right: 0;
     width: 330px;
     padding: 90px 20px 0;
-}
-
-.libraryGrid {
-    margin: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    padding-bottom: 120px;
-}
-
-.libraryItem {
-    width: min-content;
-    min-height: min-content;
-    text-align: center;
-    position: relative;
-}
-
-.libraryItem img {
-    width: 250px;
-    height: 375px;
-    border-radius: 9px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-}
-
-.homeGallery1 img,
-.homeGallery2 img,
-.homeGallery3 img {
-    width: 125px;
-    height: 187.5px;
-    border-radius: 9px;
-    text-align: left;
-}
-
-.mainGallery {
-    display: flex;
-}
-
-.stackedGalleries {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.homeGallery1,
-.homeGallery2,
-.homeGallery3 {
-    padding: 20px;
-    width: fit-content;
-}
-
-.homeGallery3 {
-    margin-left: 20px;
-    margin-top: 190px;
-}
-
-.homeGallery4 {
-    text-align: left;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 290px;
-    padding: 90px 20px 0;
-}
-
-.homeText {
-    text-decoration: underline;
 }
 
 .info {
@@ -261,32 +195,16 @@ hr {
     padding-bottom: 9px;
 }
 
-.tab-btn {
-    background-color: transparent;
-    border: none;
-    font-size: 20px;
+.form-title {
+    font-size: 24px;
     font-weight: bold;
-    cursor: pointer;
-    padding: 10px;
-    transition: 0.2s;
-    scale: 1;
 }
 
-.tab-btn.active {
-    border-bottom: 3px solid var(--blue);
-    color: var(--blue);
-}
-
-.forgot-password {
-    display: block;
-    padding: 10px 0;
-    color: var(--blue);
+.loginRedirect {
+    display: inline-block !important;
+    padding: 0;
     text-decoration: none;
     font-size: 13px;
-}
-
-.forgot-password:hover {
-    text-decoration: underline;
 }
 
 .auth-form h3 {
@@ -324,17 +242,6 @@ hr {
     transition: 0.2s;
 }
 
-.auth-form .btn:hover {
-    border: 2px solid var(--blue);
-    border-radius: 9px;
-}
-
-.auth-form .btn:active {
-    background-color: var(--blue);
-    color: white;
-    border-radius: 9px;
-}
-
 #contactDivs {
     margin: auto;
     display: flex;
@@ -368,18 +275,20 @@ hr {
 }
 
 #submitBtn,
-#resetBtn,
-#cartBtn {
+#resetBtn {
     margin-top: 25px;
     margin-right: 150px;
     background-color: transparent;
     border: solid 2px;
     border-radius: 9px;
-    transition: 0.2s;
+    transition: 0.2s !important;
     scale: 1;
+    font-weight: bold;
 }
 
-#submitBtn {
+#submitBtn,
+#signUpButton,
+#signInButton {
     color: var(--blue);
     border-color: var(--blue) !important;
 }
@@ -389,16 +298,18 @@ hr {
     border-color: red !important;
 }
 
-#cartBtn {
-    color: rgb(30, 177, 23);
-    border-color: rgb(30, 177, 23) !important;
-    float: right;
-    font-size: 13px;
+#submitBtn:hover,
+#signUpButton:hover,
+#signInButton:hover {
+    color: white;
+    transition: 0.2s !important;
+    background: var(--blue);
 }
 
-#submitBtn:hover {
+#submitBtn:active,
+#signUpButton:active {
+    background: linear-gradient(to right, var(--blue), var(--lblue));
     color: white;
-    background-color: var(--blue);
 }
 
 #resetBtn:hover {
@@ -406,14 +317,8 @@ hr {
     background-color: red;
 }
 
-#cartBtn:hover {
-    color: white;
-    background-color: rgb(30, 177, 23);
-}
-
 #submitBtn:active,
-#resetBtn:active,
-#cartBtn:active {
+#resetBtn:active {
     scale: 0.9;
 }
 
@@ -428,9 +333,23 @@ hr {
     scale: 1;
 }
 
+#signUpButton,
+#signInButton {
+    background-color: transparent;
+    border: solid 2px;
+    border-radius: 9px;
+    transition: 0.2s !important;
+    scale: 1;
+    font-weight: bold;
+}
+
+.ti {
+    color: var(--blue);
+}
+
 footer {
     text-align: center;
-    background-color: var(--blue);
+    background: linear-gradient(to right, var(--blue), var(--lblue));
     color: white;
     position: fixed;
     bottom: 0;
@@ -449,4 +368,10 @@ footer a {
 
 .footerLink:hover {
     text-decoration: underline !important;
+}
+.error-message {
+    color: red; /* Set text color to red */
+    font-size: 14px; /* Adjust font size */
+    margin-top: 5px; /* Add some space between input and error message */
+    display: block; /* Ensure it's on a new line */
 }
