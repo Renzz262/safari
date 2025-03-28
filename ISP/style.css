@@ -393,3 +393,34 @@ footer a {
     border-radius: 8px;
     text-align: center;
 }
+
+
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F7FA; /* Very light grayish-white background */
+    color: #333;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #87CEEB; /* Sky blue for the heading */
+    text-align: center;
+    font-size: 28px;
+    border-bottom: 2px solid #87CEEB; /* Sky blue underline */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+p {
+    background-color: #FFFFFF; /* White background for content */
+    border: 2px solid #87CEEB; /* Sky blue border */
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
