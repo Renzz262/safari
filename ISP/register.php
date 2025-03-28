@@ -1,70 +1,66 @@
 <?php
-
+// Enable error reporting for debugging
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-echo "Debug: register.php is loading!";
+
 session_start();
+session_regenerate_id(true); // Prevent session fixation attacks
+
 include 'connect.php';
+
+// Ensure database connection
 if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());
-} else {
-    echo "Debug: Database connected successfully!";
 }
 
-if (isset($_POST['signUp'])) {
-    $firstName = trim($_POST['fName']);
-    $lastName = trim($_POST['lName']);
+// === HANDLE REGISTRATION ===
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signUp'])) {
+    $fName = trim($_POST['fName']);
+    $lName = trim($_POST['lName']);
     $email = trim($_POST['email']);
-    $accountType = trim($_POST['accountType']);
+    $accountType = strtolower(trim($_POST['accountType'])); // Ensure lowercase storage
+    $password = trim($_POST['password']);
 
-    if (!empty($_POST['password'])) {
-        $password = $_POST['password'];
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    } else {
-        die("Error: Password field is empty.");
+    if (empty($fName) || empty($lName) || empty($accountType) || empty($email) || empty($password)) {
+        die("<script>alert('Error: All fields are required.'); window.location.href='register.html';</script>");
     }
 
-    // ✅ Check if email already exists
-    $checkEmail = "SELECT * FROM users WHERE email = ?";
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+    $checkEmail = "SELECT id FROM users WHERE email = ?";
     $stmt = $conn->prepare($checkEmail);
-    
-    if (!$stmt) {
-        die("SQL Error (Email Check): " . $conn->error);
-    }
-
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        echo "<script>alert('Email Address Already Exists!'); window.location.href='register.html';</script>";
+        echo "<script>alert('Error: Email already registered. Please log in.'); window.location.href='login.html';</script>";
+        exit();
+    }
+
+    $sql = "INSERT INTO users (firstName, lastName, email, password, accountType) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssss", $fName, $lName, $email, $hashedPassword, $accountType);
+
+    if ($stmt->execute()) {
+        echo "<script>alert('User registered successfully! Redirecting to login...'); window.location.href='login.html';</script>";
+        exit();
     } else {
-        $insertQuery = "INSERT INTO users (firstName, lastName, email, password, accountType) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($insertQuery);
-
-        if (!$stmt) {
-            die("SQL Error (Insert): " . $conn->error);
-        }
-
-        $stmt->bind_param("sssss", $firstName, $lastName, $email, $hashedPassword, $accountType);
-
-        if ($stmt->execute()) {
-            echo "<script>alert('Account created successfully! Please log in.'); window.location.href='login.html';</script>";
-            exit();
-        } else {
-            echo "Database Error: " . $stmt->error;
-        }
+        die("Error: User registration failed - " . $stmt->error);
     }
 }
 
-
 // === HANDLE LOGIN ===
-if (isset($_POST['signIn'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signIn'])) {
     $email = trim($_POST['email']);
-    $password = trim($_POST['password']); 
+    $password = trim($_POST['password']);
 
-    $sql = "SELECT id, password FROM users WHERE email = ?";
+    if (empty($email) || empty($password)) {
+        die("<script>alert('Error: Email and password are required.'); window.location.href='login.html';</script>");
+    }
+
+    $sql = "SELECT id, password, accountType FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -77,55 +73,28 @@ if (isset($_POST['signIn'])) {
         if (password_verify($password, $hashedPasswordFromDB)) {
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['email'] = $email;
-            echo "<script>alert('Login successful!'); window.location.href='home.html';</script>";
+            $_SESSION['accountType'] = strtolower($row['accountType']);
+
+            if ($_SESSION['accountType'] === 'driver') {
+                header("Location: driver_dashboard.php");
+            } else {
+                header("Location: home.html");
+            }
             exit();
         } else {
-            echo "<script>alert('Incorrect Email or Password!');</script>";
+            echo "<script>alert('Error: Incorrect Email or Password!'); window.location.href='login.html';</script>";
+            exit();
         }
     } else {
-        echo "<script>alert('User Not Found!');</script>";
+        echo "<script>alert('Error: No user found with this email. Please sign up first.'); window.location.href='register.html';</script>";
+        exit();
     }
 }
 
 // === HANDLE RIDE BOOKING ===
-
-// Enable error reporting for debugging
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-echo "Debug: register.php is loading!<br>";
-
-// ✅ Ensure session is started only once
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// ✅ Check if database connection is successful
-include 'connect.php';
-if (!$conn) {
-    die("Database connection failed: " . mysqli_connect_error());
-} else {
-    echo "Debug: Database connected successfully!<br>";
-}
-
-// ✅ Check if the form is submitted properly
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    echo "Debug: Form submitted via POST!<br>";
-
-    // ✅ Ensure the submit button was clicked
-    if (!isset($_POST['bookRide'])) {
-        die("Error: Submit button 'bookRide' is missing.");
-    }
-
-    // ✅ Ensure user is logged in
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bookRide'])) {
     if (!isset($_SESSION['user_id'])) {
-        die("Error: Access denied. Please log in.");
-    }
-
-    // ✅ Validate form data
-    if (!isset($_POST['name'], $_POST['pickup'], $_POST['drop'])) {
-        die("Error: Missing required form fields.");
+        die("<script>alert('Access denied. Please log in.'); window.location.href='login.html';</script>");
     }
 
     $name = trim($_POST['name']);
@@ -133,38 +102,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $drop = trim($_POST['drop']);
 
     if (empty($name) || empty($pickup) || empty($drop)) {
-        die("Error: All fields are required.");
+        die("<script>alert('Error: All fields are required.'); window.location.href='home.html';</script>");
     }
 
-    echo "<p>Debug: Name = " . htmlspecialchars($name) . "</p>";
-    echo "<p>Debug: Pickup = " . htmlspecialchars($pickup) . "</p>";
-    echo "<p>Debug: Dropoff = " . htmlspecialchars($drop) . "</p>";
+    // Assign a random available driver
+    $sql = "SELECT id FROM users WHERE LOWER(accountType) = 'driver' ORDER BY RAND() LIMIT 1";
+    $driver_result = $conn->query($sql);
+    $driver_id = ($driver_result->num_rows > 0) ? $driver_result->fetch_assoc()['id'] : NULL;
 
-    // ✅ Insert into database
-    $sql = "INSERT INTO bookings (name, pickup, dropoff) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-
-    if (!$stmt) {
-        die("SQL Error (Prepare Failed): " . $conn->error);
+    if (!$driver_id) {
+        die("<script>alert('No drivers available at the moment.'); window.location.href='home.html';</script>");
     }
 
-    $stmt->bind_param("sss", $name, $pickup, $drop);
+    // Insert booking with assigned driver
+    $insertBooking = "INSERT INTO bookings (name, pickup, dropoff, driver_id) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($insertBooking);
+    $stmt->bind_param("sssi", $name, $pickup, $drop, $driver_id);
 
     if ($stmt->execute()) {
         $ride_id = $stmt->insert_id;
-        echo "<p>Debug: Ride ID Generated = " . $ride_id . "</p>";
-
-        if (!$ride_id) {
-            die("Error: Ride ID not generated. Check database structure.");
-        }
-
-        // ✅ Redirect to receipt.php with ride_id
         header("Location: receipt.php?ride_id=" . urlencode($ride_id));
         exit();
     } else {
-        die("Database Insertion Failed: " . $stmt->error);
+        die("<script>alert('Database Insertion Failed: " . $stmt->error . "'); window.location.href='home.html';</script>");
     }
-} else {
-    die("Error: Invalid request. Debug: Request method was " . $_SERVER["REQUEST_METHOD"]);
 }
 ?>
