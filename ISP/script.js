@@ -79,3 +79,21 @@ document.querySelectorAll("form").forEach(form => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form[action='register.php']");
+    const accountTypeSelect = document.getElementById("accountType");
+
+    form.addEventListener("submit", function (event) {
+        if (accountTypeSelect.value === "admin") {
+            form.action = "admin_dashboard.php";  // Redirect if admin
+        }
+    });
+});
+// Debugging Click Events
+document.querySelector("#signin-submit").addEventListener("click", function () {
+    console.log("Sign-in button clicked!");
+});
+
+document.querySelector("#signup-submit").addEventListener("click", function () {
+    console.log("Sign-up button clicked!");
+});
