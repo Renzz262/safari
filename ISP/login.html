@@ -7,6 +7,8 @@
     <title>SafariConnect • Login</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+     <link rel="icon" href="https://media.istockphoto.com/id/2070968418/vector/lettering-va-brand-symbol-design.jpg?s=612x612&w=0&k=20&c=5-HWZ5Bf2DDVdcUT1fK51F6TxixVZhAYaBZLJOSug8c=">
+
 </head>
 
 <body>
@@ -16,8 +18,7 @@
         </div>
         <nav>
             <ul>
-                <li class="navBar"><a href="./home.html">Home</a></li>
-                <li class="navBar"><a href="./ride.html">Book Ride</a></li>
+                
                 <li class="navBar"><a href="./login.html" class="activePage">Login</a></li>
             </ul>
         </nav>
@@ -41,8 +42,8 @@
                         <br>
                         <div class="input-group">
                             <label>Account Type: <i class="ti ti-settings-filled"></i></label>
-                            <select name="accountType" required>
-                                <option disabled>--Select User --</option>
+                            <select name="accountType" id="accountType" required>
+                                <option disabled selected>--Select User --</option>
                                 <option>Commuter</option>
                                 <option>Driver</option>
                                 <option>Administrator</option>
@@ -68,7 +69,7 @@
 
                 <div class="container" id="signIn">
                     <h1 class="form-title">Sign In</h1>
-                    <form method="post" action="register.php">
+                    <form method="post" action="login.php">
                         <div class="input-group">
                             <label for="signin-email">Email <i class="ti ti-mail-filled"></i></label>
                             <input type="email" name="email" id="email" placeholder="Email" required>
