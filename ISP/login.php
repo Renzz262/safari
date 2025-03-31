@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("<script>alert('Error: Email and password are required.'); window.location.href='login.html';</script>");
     }
 
-    $sql = "SELECT id, password, accountType FROM users WHERE email = ?";
+    $sql = "SELECT id, firstName, lastName, password, accountType FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
@@ -25,22 +25,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows === 1) {
         $row = $result->fetch_assoc();
-
         $hashedPasswordFromDB = $row['password'];
 
         // ✅ Verify password
         if (password_verify($password, $hashedPasswordFromDB)) {
             $_SESSION['user_id'] = $row['id'];
-            $_SESSION['accountType'] = strtolower($row['accountType']); // Store in lowercase
+            $_SESSION['accountType'] = strtolower($row['accountType']); // Store in lowercase for consistency
+            $_SESSION['firstName'] = $row['firstName']; // ✅ Store first name
+            $_SESSION['lastName'] = $row['lastName']; // ✅ Store last name
 
-            // Redirect based on account type
-            if ($_SESSION['accountType'] === 'driver') {
-                header("Location: driver_dashboard.php");
-                exit();
-            } else {
-                header("Location: home.html");
-                exit();
+            // 🔹 Redirect based on user role
+            switch ($_SESSION['accountType']) {
+                case 'administrator':
+                    header("Location: admin_dashboard.php");
+                    break;
+                case 'driver':
+                    header("Location: driver_dashboard.php"); // ✅ Redirect drivers properly
+                    break;
+                case 'commuter':
+                    header("Location: commuter_dashboard.php");
+                    break;
+                default:
+                    echo "<script>alert('Error: Unknown account type.'); window.location.href='login.html';</script>";
+                    exit();
             }
+            exit();
         } else {
             echo "<script>alert('Error: Invalid password.'); window.location.href='login.html';</script>";
             exit();
