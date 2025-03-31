@@ -1,25 +1,24 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+include "connect.php"; // Ensure database connection
+
 // Enable error reporting for debugging
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
-session_regenerate_id(true); // Prevent session fixation attacks
-
-include 'connect.php';
-
-// Ensure database connection
 if (!$conn) {
     die("Database connection failed: " . mysqli_connect_error());
 }
 
-// === HANDLE REGISTRATION ===
+// === HANDLE USER REGISTRATION ===
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signUp'])) {
     $fName = trim($_POST['fName']);
     $lName = trim($_POST['lName']);
     $email = trim($_POST['email']);
-    $accountType = strtolower(trim($_POST['accountType'])); // Ensure lowercase storage
+    $accountType = trim($_POST['accountType']); // Keep original casing
     $password = trim($_POST['password']);
 
     if (empty($fName) || empty($lName) || empty($accountType) || empty($email) || empty($password)) {
@@ -47,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signUp'])) {
         echo "<script>alert('User registered successfully! Redirecting to login...'); window.location.href='login.html';</script>";
         exit();
     } else {
-        die("Error: User registration failed - " . $stmt->error);
+        die("<script>alert('Error: User registration failed. " . $stmt->error . "'); window.location.href='register.html';</script>");
     }
 }
 
@@ -73,14 +72,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signIn'])) {
         if (password_verify($password, $hashedPasswordFromDB)) {
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['email'] = $email;
-            $_SESSION['accountType'] = strtolower($row['accountType']);
+            $_SESSION['accountType'] = $row['accountType']; // Keep original casing
 
-            if ($_SESSION['accountType'] === 'driver') {
+            if ($_SESSION['accountType'] === 'Administrator') {  
+                header("Location: admin_dashboard.php");
+            } elseif ($_SESSION['accountType'] === 'Driver') {
                 header("Location: driver_dashboard.php");
+            } elseif ($_SESSION['accountType'] === 'Commuter') {
+                header("Location: commuter_dashboard.php");
             } else {
-                header("Location: home.html");
+                echo "<script>alert('Error: Unknown account type.'); window.location.href='login.html';</script>";
+                exit();
             }
-            exit();
         } else {
             echo "<script>alert('Error: Incorrect Email or Password!'); window.location.href='login.html';</script>";
             exit();
@@ -92,39 +95,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signIn'])) {
 }
 
 // === HANDLE RIDE BOOKING ===
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bookRide'])) {
-    if (!isset($_SESSION['user_id'])) {
-        die("<script>alert('Access denied. Please log in.'); window.location.href='login.html';</script>");
-    }
+include "connect.php"; // Ensure database connection
 
+// ✅ Ensure user is logged in
+if (!isset($_SESSION['user_id'])) {
+    die(json_encode(["error" => "User not logged in."]));
+}
+
+// ✅ Capture form data
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bookRide'])) {
+    $user_id = $_SESSION['user_id']; // Logged-in user ID
     $name = trim($_POST['name']);
     $pickup = trim($_POST['pickup']);
-    $drop = trim($_POST['drop']);
+    $dropoff = trim($_POST['dropoff']);
 
-    if (empty($name) || empty($pickup) || empty($drop)) {
-        die("<script>alert('Error: All fields are required.'); window.location.href='home.html';</script>");
+    // ✅ Debugging: Log received data
+    error_log(print_r($_POST, true));
+
+    // ✅ Validate required fields
+    if (empty($name) || empty($pickup) || empty($dropoff)) {
+        die(json_encode(["error" => "All fields are required."]));
     }
 
-    // Assign a random available driver
-    $sql = "SELECT id FROM users WHERE LOWER(accountType) = 'driver' ORDER BY RAND() LIMIT 1";
-    $driver_result = $conn->query($sql);
-    $driver_id = ($driver_result->num_rows > 0) ? $driver_result->fetch_assoc()['id'] : NULL;
+    // ✅ Find an available driver
+    $driver_sql = "SELECT id FROM users WHERE accountType = 'driver' ORDER BY RAND() LIMIT 1";
+    $driver_result = $conn->query($driver_sql);
+    $driver_id = null;
 
-    if (!$driver_id) {
-        die("<script>alert('No drivers available at the moment.'); window.location.href='home.html';</script>");
+    if ($driver_result->num_rows > 0) {
+        $driver_row = $driver_result->fetch_assoc();
+        $driver_id = $driver_row['id'];
+    } else {
+        die(json_encode(["error" => "No available drivers at the moment."]));
     }
 
-    // Insert booking with assigned driver
-    $insertBooking = "INSERT INTO bookings (name, pickup, dropoff, driver_id) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($insertBooking);
-    $stmt->bind_param("sssi", $name, $pickup, $drop, $driver_id);
+    // ✅ Insert the booking with assigned driver
+    $sql = "INSERT INTO bookings (user_id, name, pickup, dropoff, driver_id, status, ride_date) 
+            VALUES (?, ?, ?, ?, ?, 'Scheduled', NOW())";
+    
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        die(json_encode(["error" => "SQL Error: " . $conn->error]));
+    }
+
+    $stmt->bind_param("isssi", $user_id, $name, $pickup, $dropoff, $driver_id);
 
     if ($stmt->execute()) {
         $ride_id = $stmt->insert_id;
-        header("Location: receipt.php?ride_id=" . urlencode($ride_id));
+        echo json_encode(["success" => "Booking successful!", "ride_id" => $ride_id]);
+
+        // ✅ Redirect user to download the receipt
+        echo "<script>window.location.href='receipt.php?ride_id=$ride_id';</script>";
         exit();
     } else {
-        die("<script>alert('Database Insertion Failed: " . $stmt->error . "'); window.location.href='home.html';</script>");
+        echo json_encode(["error" => "Booking failed: " . $stmt->error]);
     }
+
+    // ✅ Close connections
+    $stmt->close();
+    $conn->close();
 }
+
+
 ?>
