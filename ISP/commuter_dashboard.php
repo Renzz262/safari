@@ -1,12 +1,15 @@
 <?php
 session_start();
+
 include "connect.php"; // Ensure database connection
 
 // Ensure user is logged in
-if (!isset($_SESSION['accountType'])) {
-    echo "<script>alert('Access denied. Please log in.'); window.location.href='login.html';</script>";
+if (!isset($_SESSION['accountType']) || $_SESSION['accountType'] !== 'commuter') {
+    echo "<script>alert('Access denied. Please log in as a commuter.'); window.location.href='login.html';</script>";
     exit();
 }
+// Fetch commuter's first name from the session
+$commuter_name = isset($_SESSION['firstName']) ? $_SESSION['firstName'] : "Commuter";
 
 $commuter_id = $_SESSION['user_id']; // Default to logged-in commuter
 
@@ -154,10 +157,12 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "upcoming_rides") {
 
         echo '</tbody></table>';
     } else {
-        echo '<p>No upcoming rides found.</p>';
+        echo '<p>No rides available.</p>';
+        echo '<button onclick="window.location.href=\'ride.html\'" style="background: #0044cc; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Book Ride Now</button>';
     }
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -178,8 +183,10 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "upcoming_rides") {
         </div>
         <nav>
             <ul>
-                <li class="navBar"><a href="commuter_dashboard.php" class="activePage">Home</a></li>
+                <li class="navBar"><a href="commuter_dashboard.php" >Home</a></li>
                 <li class="navBar"><a href="./ride.html">Book Ride</a></li>
+                <li class="navBar"><a href="contact.php">Contact Us</a></li>
+                <li class="navBar"><a href="pending_drivers.php">Join Our Network</a></li>
                 <li class="navBar"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
@@ -187,6 +194,8 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "upcoming_rides") {
 
     <div id="bodyDiv">
         <h1 id="bodyHeader">
+            <h2 id="welcomeMessage">Welcome, <?= htmlspecialchars($commuter_name); ?>!</h2>
+
             <?php
                 if ($_SESSION['accountType'] === 'administrator') {
                     echo "Passenger Dashboard (Admin View)";
