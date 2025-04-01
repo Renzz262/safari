@@ -102,6 +102,79 @@ if (isset($_GET['fetch'])) {
     }
     exit();
 }
+$fetchType = isset($_GET['fetchType']) ? $_GET['fetchType'] : ''; // Default to an empty string if not se
+if ($fetchType === "driver_applications") {
+    // Query to fetch driver applications with status 'Pending'
+    $sql = "SELECT * FROM driver_applications WHERE status = 'Pending'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        echo "<table border='1'>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Resume</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>";
+        
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>
+                    <td>" . htmlspecialchars($row['full_name']) . "</td>
+                    <td>" . htmlspecialchars($row['age']) . "</td>
+                    <td>" . htmlspecialchars($row['email']) . "</td>
+                    <td><a href='view_resume.php?id=" . $row['id'] . "'>View Resume</a></td>
+                    <td>" . htmlspecialchars($row['status']) . "</td>
+                    <td>
+                        <a href='approve_application.php?id=" . $row['id'] . "'>Approve</a> | 
+                        <a href='reject_application.php?id=" . $row['id'] . "'>Reject</a>
+                    </td>
+                  </tr>";
+        }
+
+        echo "</tbody></table>";
+    } else {
+        echo "<p>No pending driver applications.</p>";
+    }
+}
+// Fetch Pending Driver Applications
+if (isset($_GET['view_driver_applications'])) {
+    $sql = "SELECT * FROM driver_applications WHERE status = 'Pending'";
+    $result = $conn->query($sql);
+
+    echo "<h2>Driver Applications</h2>";
+    echo "<table border='1'>
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>";
+
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>" . htmlspecialchars($row['full_name']) . "</td>
+                <td>" . htmlspecialchars($row['age']) . "</td>
+                <td>" . htmlspecialchars($row['email']) . "</td>
+                <td>" . htmlspecialchars($row['status']) . "</td>
+                <td>
+                    <a href='approve_decline.php?action=approve&id=" . $row['id'] . "'>Approve</a> |
+                    <a href='approve_decline.php?action=decline&id=" . $row['id'] . "'>Decline</a>
+                </td>
+              </tr>";
+    }
+
+    echo "</tbody></table>";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -152,8 +225,12 @@ if (isset($_GET['fetch'])) {
         <nav>
             <ul>
                 <li class="navBar"><a href="admin_dashboard.php" id="homeLink">Home</a></li>
-                <li class="navBar"><a href="#" id="manageUsers">Manage Users</a></li>
+                <li class="navBar"><a href="#" id="manageUsers">Manage Users</a></li>      
+                 <li class="navBar"><a href="driver_applications.php">View Driver Applications</a></li>
+
+
                 <li class="navBar"><a href="./login.html">Logout</a></li>
+
             </ul>
         </nav>
     </header>
@@ -245,5 +322,6 @@ if (isset($_GET['fetch'])) {
         });
 
     </script>
+
 </body>
 </html>
