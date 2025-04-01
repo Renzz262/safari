@@ -7,6 +7,8 @@ if (!isset($_SESSION['accountType']) || $_SESSION['accountType'] !== 'driver') {
     echo "<script>alert('Access denied. Please log in as a driver.'); window.location.href='login.html';</script>";
     exit();
 }
+// Fetch driver details from session
+$driver_name = isset($_SESSION['firstName']) ? $_SESSION['firstName'] : "Driver"; 
 
 $driver_id = $_SESSION['user_id']; // Default to logged-in driver
 
@@ -126,6 +128,7 @@ if (isset($_POST['action']) && isset($_POST['ride_id'])) {
         <nav>
             <ul>
                 <li class="navBar"><a href="driver_dashboard.php" class="activePage">Home</a></li>
+                <li class="navBar"><a href="driver_rides_history.php">View Ride History</button>
                 <li class="navBar"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
@@ -133,6 +136,7 @@ if (isset($_POST['action']) && isset($_POST['ride_id'])) {
 
     <div id="bodyDiv">
         <h1 id="bodyHeader">Driver Dashboard</h1>
+        <h2 id="welcomeMessage">Welcome, <?= htmlspecialchars($driver_name); ?>!</h2> <!-- Welcome message -->
         <button id="viewUpcomingRides" class="action-btn">View Upcoming Rides</button>
 
         <div class="tableDiv" id="tableContainer">
