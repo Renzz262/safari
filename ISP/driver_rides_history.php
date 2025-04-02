@@ -46,6 +46,7 @@ $result = $stmt->get_result();
             <ul>
                 <li class="navBar"><a href="driver_dashboard.php">Home</a></li>
                 <li class="navBar"><a href="driver_rides_history.php">View Ride History</button>
+                <li class="navBar"><a href="driver_profile.php"> Profile</a></li>
                 <li class="navBar"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
