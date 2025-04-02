@@ -226,7 +226,7 @@ if (isset($_GET['view_driver_applications'])) {
             <ul>
                 <li class="navBar"><a href="admin_dashboard.php" id="homeLink">Home</a></li>
                 <li class="navBar"><a href="#" id="manageUsers">Manage Users</a></li>      
-                 <li class="navBar"><a href="driver_applications.php">View Driver Applications</a></li>
+                 <li class="navBar"><a href="driver_applications.php">View Driver Applications</a></li>                        <li class="navBar"><a href="admin_profile.php"> Profile</a></li>
 
 
                 <li class="navBar"><a href="./login.html">Logout</a></li>
