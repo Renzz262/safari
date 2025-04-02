@@ -31,6 +31,7 @@ $commuter_email = isset($_SESSION['email']) ? $_SESSION['email'] : "";
                 <li class="navBar"><a href="./ride.html">Book Ride</a></li>
                 <li class="navBar"><a href="contact.php">Contact Us</a></li>
                 <li class="navBar"><a href="pending_drivers.php">Join Our Network</a></li>
+                <li class="navBar"><a href="commuter_profile.php"> Profile</a></li>
                 <li class="navBar"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
@@ -68,3 +69,4 @@ $commuter_email = isset($_SESSION['email']) ? $_SESSION['email'] : "";
     </script>
 </body>
 </html>
+
