@@ -11,14 +11,16 @@ if (!isset($_GET['ride_id']) || empty($_GET['ride_id'])) {
 
 $ride_id = intval($_GET['ride_id']);
 
-// ✅ Fetch ride details with commuter name
+// ✅ Fetch ride details with commuter and driver name
 $sql = "SELECT 
             b.id AS ride_id,
-            CONCAT(u.firstName, ' ', u.lastName) AS commuter_name,
+            CONCAT(c.firstName, ' ', c.lastName) AS commuter_name,
             b.pickup,
-            b.dropoff
+            b.dropoff,
+            CONCAT(d.firstName, ' ', d.lastName) AS driver_name
         FROM bookings b
-        JOIN users u ON b.user_id = u.id
+        JOIN users c ON b.user_id = c.id  -- Commuter details
+        JOIN users d ON b.driver_id = d.id  -- Driver details
         WHERE b.id = ?";
 
 $stmt = $conn->prepare($sql);
@@ -54,6 +56,8 @@ $pdf->Ln(10);
 $pdf->Cell(40, 10, 'Pickup Location: ' . $ride['pickup']);
 $pdf->Ln(10);
 $pdf->Cell(40, 10, 'Drop-off Location: ' . $ride['dropoff']);
+$pdf->Ln(10);
+$pdf->Cell(40, 10, 'Driver Name: ' . $ride['driver_name']); // ✅ Added driver name
 $pdf->Ln(10);
 
 // Output PDF
