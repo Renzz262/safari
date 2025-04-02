@@ -187,6 +187,7 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "upcoming_rides") {
                 <li class="navBar"><a href="./ride.html">Book Ride</a></li>
                 <li class="navBar"><a href="contact.php">Contact Us</a></li>
                 <li class="navBar"><a href="pending_drivers.php">Join Our Network</a></li>
+                 <li class="navBar"><a href="commuter_profile.php"> Profile</a></li>
                 <li class="navBar"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
