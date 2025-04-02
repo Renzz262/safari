@@ -142,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bookRide'])) {
 
     if ($stmt->execute()) {
         $ride_id = $stmt->insert_id;
-        echo json_encode(["success" => "Booking successful!", "ride_id" => $ride_id]);
+        echo json_encode(["success" => "Your Booking was successful!", "ride_id" => $ride_id]);
 
         // ✅ Redirect user to download the receipt
         echo "<script>window.location.href='receipt.php?ride_id=$ride_id';</script>";
