@@ -24,18 +24,19 @@ $result = $conn->query($sql);
 
 </head>
 <body>
-    <header>
+   <header>
         <div class="logo">
-            <span class="navText">SafariConnect - Admin Panel</span>
+            <span class="navText">SafariConnect</span>
         </div>
         <nav>
             <ul>
-               <li class="navBar"><a href="admin_dashboard.php" id="homeLink">Home</a></li>
+                <li class="navBar"><a href="admin_dashboard.php" id="homeLink">Home</a></li>
                 <li class="navBar"><a href="#" id="manageUsers">Manage Users</a></li>      
-                 <li class="navBar"><a href="driver_applications.php">View Driver Applications</a></li>
+                 <li class="navBar"><a href="driver_applications.php">View Driver Applications</a></li>                        <li class="navBar"><a href="admin_profile.php"> Profile</a></li>
 
 
                 <li class="navBar"><a href="./login.html">Logout</a></li>
+
             </ul>
         </nav>
     </header>
