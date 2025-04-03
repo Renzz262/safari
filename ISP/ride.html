@@ -15,40 +15,49 @@
         </div>
         <nav>
             <ul>
-                <li class="navBar"><a href="commuter_dashboard.php" >Home</a></li>
+                <li class="navBar"><a href="commuter_dashboard.php">Home</a></li>
                 <li class="navBar"><a href="./ride.html">Book Ride</a></li>
-                <li class="navBar"><a href="contact.php">Contact Us</a></li>
                 <li class="navBar"><a href="pending_drivers.php">Join Our Network</a></li>
-                <li class="navBar"><a href="commuter_profile.php"> Profile</a></li>
+                <li class="navBar"><a href="commuter_profile.php">Profile</a></li>
                 <li class="navBar"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
     </header>
 
-    <div id="bodyDiv" style="display: inline-block;">
-        <iframe width="450" height="350"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.4622239479795099%2C39.41359954473846%2C-0.2905625710263849%2C39.525575588307476&amp;layer=mapnik&amp;marker=29.469610091927976%2C-0.37639325950294733"
-            style="border-radius: 9px;"></iframe><br /><small><a
-                href="https://www.openstreetmap.org/?mlat=39.4696&amp;mlon=-0.3764#map=13/39.4696/-0.3764">View Larger
-                Map</a></small>
-        <br>
+    <div id="bodyDiv">
+        <h1 id="bodyHeader">Book a Ride</h1>
+        <div class="ride-content-container">
+            <div class="map-container">
+                <iframe width="450" height="350"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=-0.4622239479795099%2C39.41359954473846%2C-0.2905625710263849%2C39.525575588307476&layer=mapnik&marker=29.469610091927976%2C-0.37639325950294733"
+                    style="border-radius: 9px;"></iframe>
+                <br>
+                <small>
+  <a href="https://www.openstreetmap.org/?mlat=39.4696&mlon=-0.3764#map=13/39.4696/-0.3764" style="color: white;">View Larger Map</a>
+</small>
 
-        <form id="registrationForm" action="register.php" method="POST" style="margin-top: 22px; margin: auto; text-align: left;">
-            <h1>Where to today?</h1>
-            <label>Enter full name:</label>
-            <input type="text" name="name" placeholder="Enter full name"> <br>
-            <label>Pickup Location:</label>
-            <input type="text" id="pickup" name="pickup" required placeholder="Pickup...">
-            <br>
-            <label>Drop-off Location:</label>
-            <input type="text" id="dropoff" name="dropoff" required placeholder="Drop-off...">
-            <br>
+            </div>
 
-            <!-- ✅ Hidden input to ensure 'bookRide' is always sent -->
-            <input type="hidden" name="bookRide" value="1">
-
-            <input id="submitBtn" type="submit" value="Book Ride">
-        </form>
+            <div class="booking-form-container">
+                <div class="booking-form">
+                    <form id="registrationForm" action="register.php" method="POST">
+                        <h1>Where to today?</h1>
+                        <label>Enter full name:</label>
+                        <input type="text" name="name" placeholder="Enter full name">
+                        <br>
+                        <label>Pickup Location:</label>
+                        <input type="text" id="pickup" name="pickup" required placeholder="Pickup...">
+                        <br>
+                        <label>Drop-off Location:</label>
+                        <input type="text" id="dropoff" name="dropoff" required placeholder="Drop-off...">
+                        <br>
+                        <!-- Hidden input to ensure 'bookRide' is always sent -->
+                        <input type="hidden" name="bookRide" value="1">
+                        <input id="submitBtn" type="submit" value="Book Ride">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Payment Modal -->
@@ -72,7 +81,7 @@
         setTimeout(() => {
             alert("Payment Successful! Generating Receipt...");
             document.getElementById("paymentModal").style.display = "none"; // Close modal
-            document.getElementById("registrationForm").submit(); // ✅ Submit to register.php
+            document.getElementById("registrationForm").submit(); // Submit to register.php
         }, 2000);
     }
 
@@ -82,7 +91,7 @@
     </script>
 
     <footer>
-    
-
+        <p>© 2025 SafariConnect LTD |</p>
+    </footer>
 </body>
 </html>
