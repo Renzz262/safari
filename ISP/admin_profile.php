@@ -65,30 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_picture'])) {
     <title>Admin Profile</title>
     <link rel="icon" href="https://media.istockphoto.com/id/2070968418/vector/lettering-va-brand-symbol-design.jpg?s=612x612&w=0&k=20&c=5-HWZ5Bf2DDVdcUT1fK51F6TxixVZhAYaBZLJOSug8c=">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-        .profile-container {
-            text-align: center;
-            margin-top: 50px;
-        }
-        .profile-picture {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #0044cc;
-        }
-        .button {
-            background-color: #0044cc;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            margin: 10px;
-        }
-        .button.red {
-            background-color: red;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -97,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_picture'])) {
         </div>
         <nav>
             <ul>
-                <li class="navBar"><a href="admin_dashboard.php" >Home</a></li>
+                <li class="navBar"><a href="admin_dashboard.php">Home</a></li>
                 <li class="navBar"><a href="manage_users.php">Manage Users</a></li>
                 <li class="navBar"><a href="driver_applications.php">View Driver Applications</a></li>
                 <li class="navBar"><a href="admin_profile.php">Profile</a></li>
@@ -106,25 +82,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_picture'])) {
         </nav>
     </header>
 
-    <br><br><br>
-    
-    <div class="profile-container">
-        <h2>Admin Profile</h2>
-        <img src="uploads/<?= htmlspecialchars($admin['profile_picture']) ? $admin['profile_picture'] : 'default_profile.png' ?>" alt="Profile Picture" class="profile-picture">
-        
-        <p><strong>Name:</strong> <?= htmlspecialchars($admin['firstName'] . ' ' . $admin['lastName']) ?></p>
-        <p><strong>Email:</strong> <?= htmlspecialchars($admin['email']) ?></p>
+    <div id="bodyDiv">
+        <h1 id="bodyHeader">Admin Profile</h1>
+        <div class="profile-form-container">
+            <div class="profile-form">
+                <img src="uploads/<?= htmlspecialchars($admin['profile_picture']) ? $admin['profile_picture'] : 'default_profile.png' ?>" alt="Profile Picture" class="profile-picture">
+                <p><strong>Name:</strong> <?= htmlspecialchars($admin['firstName'] . ' ' . $admin['lastName']) ?></p>
+                <p><strong>Email:</strong> <?= htmlspecialchars($admin['email']) ?></p>
 
-        <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="profile_picture" required>
-            <button type="submit" class="button">Upload Profile Picture</button>
-        </form>
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="file" name="profile_picture" required>
+                    <button type="submit" class="button">Upload Profile Picture</button>
+                </form>
 
-        <form method="POST">
-            <button type="submit" name="remove_picture" class="button red">Remove Profile Picture</button>
-        </form>
+                <form method="POST">
+                    <button type="submit" name="remove_picture" class="button red">Remove Profile Picture</button>
+                </form>
 
-        <a href="admin_dashboard.php" class="button">Back to Dashboard</a>
+                <a href="admin_dashboard.php" class="button">Back to Dashboard</a>
+            </div>
+        </div>
     </div>
+
+    <footer>
+        <p>© 2025 SafariConnect LTD |</p>
+    </footer>
 </body>
 </html>
