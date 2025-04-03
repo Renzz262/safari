@@ -28,8 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<script>alert('Error submitting form. Please try again later.');</script>";
     }
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -50,33 +48,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <ul>
                 <li class="navBar"><a href="commuter_dashboard.php">Home</a></li>
                 <li class="navBar"><a href="./ride.html">Book Ride</a></li>
-                <li class="navBar"><a href="contact.php">Contact Us</a></li>
                 <li class="navBar"><a href="pending_drivers.php">Join Our Network</a></li>
-                <li class="navBar"><a href="commuter_profile.php"> Profile</a></li>
+                <li class="navBar"><a href="commuter_profile.php">Profile</a></li>
                 <li class="navBar"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
     </header>
 
-    <br><br><br>
-    <h2>Interested in a driver role? Fill the form below</h2>
-    <form method="POST">
-        <label>Full Name:</label>
-        <input type="text" name="full_name" required><br>
-        
-        <label>Age:</label>
-        <input type="number" name="age" required><br>
-        
-        <label>Email:</label>
-        <input type="email" name="email" required><br>
-        
-        <label>Password:</label>
-        <input type="password" name="password" required><br>
-        
-        <label>Resume / CV:</label>
-        <textarea name="resume" required></textarea><br>
-        
-        <button type="submit">Submit Application</button>
-    </form>
+    <div id="bodyDiv">
+        <h1 id="bodyHeader">Join Our Network</h1>
+        <div class="driver-application-container">
+            <div class="driver-application-form">
+                <h2>Interested in a driver role? Fill the form below</h2>
+                <form method="POST">
+                    <label>Full Name:</label>
+                    <input type="text" name="full_name" required>
+                    
+                    <label>Age:</label>
+                    <input type="number" name="age" required>
+                    
+                    <label>Email:</label>
+                    <input type="email" name="email" required>
+                    
+                    <label>Password:</label>
+                    <input type="password" name="password" required>
+                    
+                    <label>Resume / CV:</label>
+                    <textarea name="resume" required></textarea>
+                    
+                    <button type="submit">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 SafariConnect LTD |</p>
+    </footer>
 </body>
 </html>
