@@ -7,7 +7,8 @@
 
 body {
     font-family: "Poppins", Arial, Helvetica, sans-serif;
-   
+    background: url("pic1.jpg");
+    background-size: cover;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -350,7 +351,7 @@ hr {
 
 footer {
     text-align: center;
-    color: white;
+    color: blue;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -359,6 +360,7 @@ footer {
 footer p,
 footer a {
     padding: 3px 12px;
+    color: white;
 }
 
 .footerLink {
@@ -393,59 +395,812 @@ footer a {
     border-radius: 8px;
     text-align: center;
 }
-
-
-
-
-
-/* Style for the booking details container */
-.bookings-container {
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
-    max-width: 600px; /* Limit the width for better readability */
+/* Style the user management container */
+.user-management-container {
+    width: 100%;
+    max-width: 1200px; /* Limit the width for better readability */
     margin: 0 auto; /* Center the container */
+    padding: 20px 0; /* Add vertical padding */
 }
 
-/* Style for the text inside the bookings container */
-.bookings-container h2 {
-    color: #333; /* Dark color for the heading */
-    font-size: 24px;
-    margin-bottom: 15px;
+/* Style the user management form to look like a form */
+.user-management-form {
+    background-color: #ffffff; /* Solid white background to obscure the background image */
+    padding: 20px; /* Add padding inside the container */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-height: 60vh; /* Limit the height to enable scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
 
-.bookings-container p {
-    color: #333; /* Dark color for the text */
+/* Style the table inside the user management form */
+.user-management-form table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid var(--blue); /* Use your theme's blue */
+}
+
+/* Style table headers and cells */
+.user-management-form th,
+.user-management-form td {
+    border: 1px solid var(--blue);
+    padding: 10px;
+    text-align: left;
     font-size: 16px;
-    line-height: 1.5; /* Improve readability */
 }
 
-/* Optional: Style the debug text */
-.bookings-container br + p {
-    color: #555; /* Slightly lighter for debug text */
-    font-style: italic;
+/* Style table headers */
+.user-management-form th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    color: #333;
 }
 
-/* Ensure the bodyDiv has proper alignment */
+/* Style table rows */
+.user-management-form tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Light gray for alternating rows */
+}
+
+/* Style the delete button */
+.user-management-form .delete-user {
+    background-color: #ff4d4d; /* Red background for delete button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.user-management-form .delete-user:hover {
+    background-color: #e60000; /* Darker red on hover */
+}
+
+/* Ensure the bodyDiv has proper spacing */
 #bodyDiv {
     margin: 80px 40px 10px;
-    padding: 2px 20px 10px;
-    height: 80vh;
-    text-align: center;
-    display: flex; /* Use flex to center content */
-    flex-direction: column;
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
+    padding: 20px;
+    min-height: 80vh; /* Use min-height instead of height to allow content to expand */
 }
 
-/* Style the bodyHeader to stand out */
+/* Style the bodyHeader */
 #bodyHeader {
     margin-left: 20px;
     text-align: left !important;
     font-size: 25px;
     font-weight: bold;
     text-decoration: underline;
-    color: white; /* White color to stand out against the background */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add a shadow for better readability */
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+/* Style the driver applications container */
+.driver-applications-container {
+    width: 100%;
+    max-width: 1200px; /* Limit the width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 20px 0; /* Add vertical padding */
+}
+
+/* Style the driver applications form to look like a form */
+.driver-applications-form {
+    background-color: #ffffff; /* Solid white background to obscure the background image */
+    padding: 20px; /* Add padding inside the container */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-height: 60vh; /* Limit the height to enable scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Style the table inside the driver applications form */
+.driver-applications-form table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid var(--blue); /* Use your theme's blue */
+}
+
+/* Style table headers and cells */
+.driver-applications-form th,
+.driver-applications-form td {
+    border: 1px solid var(--blue);
+    padding: 10px;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Style table headers */
+.driver-applications-form th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style table rows */
+.driver-applications-form tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Light gray for alternating rows */
+}
+
+/* Style the approve and decline buttons */
+.driver-applications-form .approve-btn {
+    background-color: #28a745; /* Green background for approve button */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    transition: 0.2s;
+}
+
+.driver-applications-form .approve-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.driver-applications-form .decline-btn {
+    background-color: #ff4d4d; /* Red background for decline button */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: 0.2s;
+}
+
+.driver-applications-form .decline-btn:hover {
+    background-color: #e60000; /* Darker red on hover */
+}
+
+/* Ensure the bodyDiv has proper spacing */
+#bodyDiv {
+    margin: 80px 40px 10px;
+    padding: 20px;
+    min-height: 80vh; /* Use min-height instead of height to allow content to expand */
+}
+
+/* Style the bodyHeader */
+#bodyHeader {
+    margin-left: 20px;
+    text-align: left !important;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+/* Style the profile form container */
+.profile-form-container {
+    width: 100%;
+    max-width: 600px; /* Limit the width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 20px 0; /* Add vertical padding */
+}
+
+/* Style the profile form to look like a form */
+.profile-form {
+    background-color: #ffffff; /* Solid white background to obscure the background image */
+    padding: 30px; /* Add padding inside the container */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Center the content */
+}
+
+/* Style the profile picture */
+.profile-form .profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--blue); /* Use your theme's blue */
+    margin-bottom: 20px;
+}
+
+/* Style the profile details */
+.profile-form p {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+}
+
+/* Style the profile form inputs */
+.profile-form input[type="file"] {
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+/* Style the buttons */
+.profile-form .button {
+    background-color: var(--blue); /* Use your theme's blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.profile-form .button:hover {
+    background-color: var(--lblue); /* Lighter blue on hover */
+}
+
+.profile-form .button.red {
+    background-color: #ff4d4d; /* Red background for remove button */
+}
+
+.profile-form .button.red:hover {
+    background-color: #e60000; /* Darker red on hover */
+}
+
+/* Ensure the bodyDiv has proper spacing */
+#bodyDiv {
+    margin: 80px 40px 10px;
+    padding: 20px;
+    min-height: 80vh; /* Use min-height instead of height to allow content to expand */
+}
+
+/* Style the bodyHeader */
+#bodyHeader {
+    margin-left: 20px;
+    text-align: left !important;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+/* Style the ride content container */
+.ride-content-container {
+    display: flex;
+    justify-content: space-between; /* Space out the map and form */
+    align-items: center; /* Center vertically */
+    width: 100%;
+    max-width: 1200px; /* Limit the width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 20px 0; /* Add vertical padding */
+}
+
+/* Style the map container */
+.map-container {
+    width: 35%; /* Adjust width to fit alongside the form */
+    height: 400px; /* Set a fixed height for the map */
+    border-radius: 10px;
+    overflow: hidden; /* Ensure the map fits within the container */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the map iframe */
+.map-container iframe {
+    width: 100%;
+    height: 350px;
+    border: none;
+}
+
+/* Style the booking form container */
+.booking-form-container {
+    width: 35%; /* Adjust width to fit alongside the map */
+    margin-left: 20px; /* Add space between the map and form */
+    margin-right: 40px; /* Add space on the right to see the background */
+}
+
+/* Style the booking form to look like a form */
+.booking-form {
+    background-color: #ffffff; /* Solid white background to obscure the background image */
+    padding: 30px; /* Add padding inside the container */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: left; /* Align form content to the left */
+}
+
+/* Style the form heading */
+.booking-form h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Style the form labels */
+.booking-form label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Style the form inputs */
+.booking-form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+}
+
+/* Style the submit button */
+.booking-form #submitBtn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    color: white;
+    background-color: var(--blue); /* Use your theme's blue */
+    font-weight: bold;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.booking-form #submitBtn:hover {
+    background-color: var(--lblue); /* Lighter blue on hover */
+}
+
+/* Ensure the bodyDiv has proper spacing */
+#bodyDiv {
+    margin: 80px 40px 10px;
+    padding: 20px;
+    min-height: 80vh; /* Use min-height instead of height to allow content to expand */
+}
+
+/* Style the bodyHeader */
+#bodyHeader {
+    margin-left: 20px;
+    text-align: left !important;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .ride-content-container {
+        flex-direction: column; /* Stack map and form on smaller screens */
+        align-items: center;
+    }
+
+    .map-container, .booking-form-container {
+        width: 90%; /* Full width on smaller screens */
+        margin: 10px 0; /* Add vertical spacing */
+    }
+}
+/* Style the rides container */
+.rides-container {
+    width: 100%;
+    max-width: 1200px; /* Limit the width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 20px 0; /* Add vertical padding */
+}
+
+/* Style the rides form to look like a form */
+.rides-form {
+    background-color: #ffffff; /* Solid white background to obscure the background image */
+    padding: 20px; /* Add padding inside the container */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-height: 60vh; /* Limit the height to enable scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Style the table inside the rides form */
+.rides-form table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid var(--blue); /* Use your theme's blue */
+}
+
+/* Style table headers and cells */
+.rides-form th,
+.rides-form td {
+    border: 1px solid var(--blue);
+    padding: 10px;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Style table headers */
+.rides-form th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style table rows */
+.rides-form tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Light gray for alternating rows */
+}
+
+/* Style the action buttons */
+.rides-container .action-btn {
+    background-color: var(--blue); /* Use your theme's blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.rides-container .action-btn:hover {
+    background-color: var(--lblue); /* Lighter blue on hover */
+}
+
+/* Style the rate-ride button */
+.rides-form .rate-ride {
+    background-color: #28a745; /* Green background for rate button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.rides-form .rate-ride:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Style the welcome message */
+#welcomeMessage {
+    color: white;
+    margin-left: 20px;
+    font-size: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Ensure the bodyDiv has proper spacing */
+#bodyDiv {
+    margin: 80px 40px 10px;
+    padding: 20px;
+    min-height: 80vh; /* Use min-height instead of height to allow content to expand */
+}
+
+/* Style the bodyHeader */
+#bodyHeader {
+    margin-left: 20px;
+    text-align: left !important;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .rides-form {
+        padding: 15px;
+        max-height: 50vh;
+    }
+    .rides-form table {
+        font-size: 14px;
+    }
+}
+/* Style the driver application container */
+.driver-application-container {
+    width: 100%;
+    max-width: 600px; /* Limit the width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 20px 0; /* Add vertical padding */
+}
+
+/* Style the driver application form to look like a form */
+.driver-application-form {
+    background-color: #ffffff; /* Solid white background to obscure the background image */
+    padding: 30px; /* Add padding inside the container */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: left; /* Align form content to the left */
+}
+
+/* Style the form heading */
+.driver-application-form h2 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Style the form labels */
+.driver-application-form label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Style the form inputs */
+.driver-application-form input[type="text"],
+.driver-application-form input[type="number"],
+.driver-application-form input[type="email"],
+.driver-application-form input[type="password"],
+.driver-application-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+/* Style the textarea specifically */
+.driver-application-form textarea {
+    height: 100px; /* Set a reasonable height for the textarea */
+    resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Style the submit button */
+.driver-application-form button[type="submit"] {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    color: white;
+    background-color: var(--blue); /* Use your theme's blue */
+    font-weight: bold;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.driver-application-form button[type="submit"]:hover {
+    background-color: var(--lblue); /* Lighter blue on hover */
+}
+
+/* Ensure the bodyDiv has proper spacing */
+#bodyDiv {
+    margin: 80px 40px 10px;
+    padding: 20px;
+    min-height: 80vh; /* Use min-height instead of height to allow content to expand */
+}
+
+/* Style the bodyHeader */
+#bodyHeader {
+    margin-left: 20px;
+    text-align: left !important;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .driver-application-container {
+        max-width: 90%;
+    }
+    .driver-application-form {
+        padding: 20px;
+    }
+}
+/* Style the profile form container */
+.profile-form-container {
+    width: 100%;
+    max-width: 600px; /* Limit the width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 20px 0; /* Add vertical padding */
+}
+
+/* Style the profile form to look like a form */
+.profile-form {
+    background-color: #ffffff; /* Solid white background to obscure the background image */
+    padding: 30px; /* Add padding inside the container */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Center the content */
+}
+
+/* Style the profile picture */
+.profile-form .profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--blue); /* Use your theme's blue */
+    margin-bottom: 20px;
+}
+
+/* Style the profile details */
+.profile-form p {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+}
+
+/* Style the profile form inputs */
+.profile-form input[type="file"] {
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+/* Style the buttons */
+.profile-form .button {
+    background-color: var(--blue); /* Use your theme's blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.profile-form .button:hover {
+    background-color: var(--lblue); /* Lighter blue on hover */
+}
+
+.profile-form .button.red {
+    background-color: #ff4d4d; /* Red background for remove button */
+}
+
+.profile-form .button.red:hover {
+    background-color: #e60000; /* Darker red on hover */
+}
+
+/* Ensure the bodyDiv has proper spacing */
+#bodyDiv {
+    margin: 80px 40px 10px;
+    padding: 20px;
+    min-height: 80vh; /* Use min-height instead of height to allow content to expand */
+}
+
+/* Style the bodyHeader */
+#bodyHeader {
+    margin-left: 20px;
+    text-align: left !important;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-form-container {
+        max-width: 90%;
+    }
+    .profile-form {
+        padding: 20px;
+    }
+}
+/* Style the rides container */
+.rides-container {
+    width: 100%;
+    max-width: 1200px; /* Limit the width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 20px 0; /* Add vertical padding */
+}
+
+/* Style the rides form to look like a form */
+.rides-form {
+    background-color: #ffffff; /* Solid white background to obscure the background image */
+    padding: 20px; /* Add padding inside the container */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    max-height: 60vh; /* Limit the height to enable scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Style the table inside the rides form */
+.rides-form table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid var(--blue); /* Use your theme's blue */
+}
+
+/* Style table headers and cells */
+.rides-form th,
+.rides-form td {
+    border: 1px solid var(--blue);
+    padding: 10px;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Style table headers */
+.rides-form th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style table rows */
+.rides-form tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Light gray for alternating rows */
+}
+
+/* Style the action buttons */
+.rides-container .action-btn {
+    background-color: var(--blue); /* Use your theme's blue */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.rides-container .action-btn:hover {
+    background-color: var(--lblue); /* Lighter blue on hover */
+}
+
+/* Style the accept button */
+.rides-form .accept-btn {
+    background-color: #28a745; /* Green background for accept button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: 0.2s;
+}
+
+.rides-form .accept-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* Style the decline button */
+.rides-form .decline-btn {
+    background-color: #ff4d4d; /* Red background for decline button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.rides-form .decline-btn:hover {
+    background-color: #e60000; /* Darker red on hover */
+}
+
+/* Style the welcome message */
+#welcomeMessage {
+    color: white;
+    margin-left: 20px;
+    font-size: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Ensure the bodyDiv has proper spacing */
+#bodyDiv {
+    margin: 80px 40px 10px;
+    padding: 20px;
+    min-height: 80vh; /* Use min-height instead of height to allow content to expand */
+}
+
+/* Style the bodyHeader */
+#bodyHeader {
+    margin-left: 20px;
+    text-align: left !important;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .rides-form {
+        padding: 15px;
+        max-height: 50vh;
+    }
+    .rides-form table {
+        font-size: 14px;
+    }
 }
