@@ -36,6 +36,10 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "upcoming_rides") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+        echo '<div class="rides-container">';
+        echo '<h2 style="color: white;">Upcoming Rides</h2>';
+
+        echo '<div class="rides-form">';
         echo '<table border="1">
             <thead>
                 <tr>
@@ -70,8 +74,12 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "upcoming_rides") {
         }
 
         echo '</tbody></table>';
+        echo '</div>'; // Close rides-form
+        echo '</div>'; // Close rides-container
     } else {
+        echo '<div class="rides-container">';
         echo '<p>No upcoming rides found for this driver.</p>';
+        echo '</div>';
     }
 
     $stmt->close();
@@ -115,8 +123,7 @@ if (isset($_POST['action']) && isset($_POST['ride_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SafariConnect • Driver Dashboard</title>
-        <link rel="icon" href="https://media.istockphoto.com/id/2070968418/vector/lettering-va-brand-symbol-design.jpg?s=612x612&w=0&k=20&c=5-HWZ5Bf2DDVdcUT1fK51F6TxixVZhAYaBZLJOSug8c=">
-
+    <link rel="icon" href="https://media.istockphoto.com/id/2070968418/vector/lettering-va-brand-symbol-design.jpg?s=612x612&w=0&k=20&c=5-HWZ5Bf2DDVdcUT1fK51F6TxixVZhAYaBZLJOSug8c=">
     <link rel="stylesheet" type="text/css" href="./style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -128,8 +135,8 @@ if (isset($_POST['action']) && isset($_POST['ride_id'])) {
         <nav>
             <ul>
                 <li class="navBar"><a href="driver_dashboard.php" class="activePage">Home</a></li>
-                <li class="navBar"><a href="driver_rides_history.php">View Ride History</button>
-                <li class="navBar"><a href="driver_profile.php"> Profile</a></li>
+                <li class="navBar"><a href="driver_rides_history.php">View Ride History</a></li>
+                <li class="navBar"><a href="driver_profile.php">Profile</a></li>
                 <li class="navBar"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
@@ -137,7 +144,7 @@ if (isset($_POST['action']) && isset($_POST['ride_id'])) {
 
     <div id="bodyDiv">
         <h1 id="bodyHeader">Driver Dashboard</h1>
-        <h2 id="welcomeMessage">Welcome, <?= htmlspecialchars($driver_name); ?>!</h2> <!-- Welcome message -->
+        <h2 id="welcomeMessage">Welcome, <?= htmlspecialchars($driver_name); ?>!</h2>
         <button id="viewUpcomingRides" class="action-btn">View Upcoming Rides</button>
 
         <div class="tableDiv" id="tableContainer">
@@ -200,5 +207,8 @@ if (isset($_POST['action']) && isset($_POST['ride_id'])) {
             });
         });
     </script>
+    <footer>
+        <p>© 2025 SafariConnect LTD |</p>
+    </footer>
 </body>
 </html>
