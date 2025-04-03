@@ -54,8 +54,11 @@ if (isset($_GET['fetch'])) {
         die("Query Failed: " . $conn->error);
     }
 
-    if ($fetchType === "users") {
-        echo "<h2>User Management</h2>";
+  if ($fetchType === "users") {
+        echo "<div class='user-management-container'>";
+       echo "<h2 style='color: white;'>User Management</h2>";
+
+        echo "<div class='user-management-form'>";
         echo "<table border='1'>
                 <thead>
                     <tr>
@@ -83,6 +86,8 @@ if (isset($_GET['fetch'])) {
         }
 
         echo "</tbody></table>";
+        echo "</div>"; // Close user-management-form
+        echo "</div>"; // Close user-management-container
     } else {
         echo "<div class='booking-container'>";
         while ($row = $result->fetch_assoc()) {
@@ -102,7 +107,8 @@ if (isset($_GET['fetch'])) {
     }
     exit();
 }
-$fetchType = isset($_GET['fetchType']) ? $_GET['fetchType'] : ''; // Default to an empty string if not se
+
+$fetchType = isset($_GET['fetchType']) ? $_GET['fetchType'] : ''; // Default to an empty string if not set
 if ($fetchType === "driver_applications") {
     // Query to fetch driver applications with status 'Pending'
     $sql = "SELECT * FROM driver_applications WHERE status = 'Pending'";
@@ -141,6 +147,7 @@ if ($fetchType === "driver_applications") {
         echo "<p>No pending driver applications.</p>";
     }
 }
+
 // Fetch Pending Driver Applications
 if (isset($_GET['view_driver_applications'])) {
     $sql = "SELECT * FROM driver_applications WHERE status = 'Pending'";
@@ -175,7 +182,7 @@ if (isset($_GET['view_driver_applications'])) {
     echo "</tbody></table>";
 }
 
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -237,7 +244,6 @@ if (isset($_GET['view_driver_applications'])) {
 
     <div id="bodyDiv">
         <h1 id="bodyHeader">Admin Dashboard</h1>
-        <p>Number of Logged-in Users: <strong id="loggedInCount"><?php echo $loggedInUsers; ?></strong></p>
         <button id="viewDriverTable">View Driver Dashboard</button>
         <button id="viewPassengerTable">View Passenger Dashboard</button>
         
@@ -322,6 +328,8 @@ if (isset($_GET['view_driver_applications'])) {
         });
 
     </script>
-
+ <footer>
+        <p>&copy; 2025 SafariConnect LTD |</p>
+    </footer>
 </body>
 </html>
