@@ -60,6 +60,10 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "rides") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+        echo '<div class="rides-container">';
+        echo '<h2 style="color: white;">Previous Rides</h2>';
+
+        echo '<div class="rides-form">';
         echo '<table border="1">
             <thead>
                 <tr>
@@ -95,6 +99,8 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "rides") {
         }
 
         echo '</tbody></table>';
+        echo '</div>'; // Close rides-form
+        echo '</div>'; // Close rides-container
     } else {
         echo '<p>No rides found for this commuter.</p>';
     }
@@ -127,6 +133,10 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "upcoming_rides") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+        echo '<div class="rides-container">';
+        echo '<h2 style="color: white;">Upcoming Rides</h2>';
+
+        echo '<div class="rides-form">';
         echo '<table border="1">
             <thead>
                 <tr>
@@ -156,9 +166,13 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "upcoming_rides") {
         }
 
         echo '</tbody></table>';
+        echo '</div>'; // Close rides-form
+        echo '</div>'; // Close rides-container
     } else {
+        echo '<div class="rides-container">';
         echo '<p>No rides available.</p>';
-        echo '<button onclick="window.location.href=\'ride.html\'" style="background: #0044cc; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Book Ride Now</button>';
+        echo '<button onclick="window.location.href=\'ride.html\'" class="action-btn">Book Ride Now</button>';
+        echo '</div>';
     }
     exit();
 }
@@ -183,28 +197,18 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "upcoming_rides") {
         </div>
         <nav>
             <ul>
-                <li class="navBar"><a href="commuter_dashboard.php" >Home</a></li>
+                <li class="navBar"><a href="commuter_dashboard.php">Home</a></li>
                 <li class="navBar"><a href="./ride.html">Book Ride</a></li>
-                <li class="navBar"><a href="contact.php">Contact Us</a></li>
                 <li class="navBar"><a href="pending_drivers.php">Join Our Network</a></li>
-                 <li class="navBar"><a href="commuter_profile.php"> Profile</a></li>
+                <li class="navBar"><a href="commuter_profile.php">Profile</a></li>
                 <li class="navBar"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
     </header>
 
     <div id="bodyDiv">
-        <h1 id="bodyHeader">
-            <h2 id="welcomeMessage">Welcome, <?= htmlspecialchars($commuter_name); ?>!</h2>
-
-            <?php
-                if ($_SESSION['accountType'] === 'administrator') {
-                    echo "Passenger Dashboard (Admin View)";
-                } else {
-                    echo "Commuter Dashboard";
-                }
-            ?>
-        </h1>
+        <h1 id="bodyHeader">Commuter Dashboard</h1>
+        <h2 id="welcomeMessage">Welcome, <?= htmlspecialchars($commuter_name); ?></h2>
         <button id="viewRides" class="action-btn">View Rides</button>
         <button id="viewUpcomingRides" class="action-btn">View Upcoming Rides</button>
 
@@ -265,5 +269,8 @@ if (isset($_GET['fetch']) && $_GET['fetch'] === "upcoming_rides") {
             });
         });
     </script>
+    <footer>
+        <p>© 2025 SafariConnect LTD |</p>
+    </footer>
 </body>
 </html>
