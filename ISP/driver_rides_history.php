@@ -33,8 +33,7 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SafariConnect • Ride History</title>
-            <link rel="icon" href="https://media.istockphoto.com/id/2070968418/vector/lettering-va-brand-symbol-design.jpg?s=612x612&w=0&k=20&c=5-HWZ5Bf2DDVdcUT1fK51F6TxixVZhAYaBZLJOSug8c=">
-
+    <link rel="icon" href="https://media.istockphoto.com/id/2070968418/vector/lettering-va-brand-symbol-design.jpg?s=612x612&w=0&k=20&c=5-HWZ5Bf2DDVdcUT1fK51F6TxixVZhAYaBZLJOSug8c=">
     <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
@@ -45,8 +44,8 @@ $result = $stmt->get_result();
         <nav>
             <ul>
                 <li class="navBar"><a href="driver_dashboard.php">Home</a></li>
-                <li class="navBar"><a href="driver_rides_history.php">View Ride History</button>
-                <li class="navBar"><a href="driver_profile.php"> Profile</a></li>
+                <li class="navBar"><a href="driver_rides_history.php">View Ride History</a></li>
+                <li class="navBar"><a href="driver_profile.php">Profile</a></li>
                 <li class="navBar"><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
@@ -54,31 +53,44 @@ $result = $stmt->get_result();
 
     <div id="bodyDiv">
         <h1 id="bodyHeader">Ride History</h1>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Commuter Name</th>
-                    <th>Ride ID</th>
-                    <th>Pickup Location</th>
-                    <th>Drop-off Location</th>
-                    <th>Ride Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $result->fetch_assoc()) { ?>
-                    <tr>
-                        <td><?= htmlspecialchars($row['commuter_name']) ?></td>
-                        <td><?= htmlspecialchars($row['ride_id']) ?></td>
-                        <td><?= htmlspecialchars($row['pickup']) ?></td>
-                        <td><?= htmlspecialchars($row['dropoff']) ?></td>
-                        <td><?= htmlspecialchars($row['ride_date']) ?></td>
-                        <td><?= htmlspecialchars($row['status']) ?></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+        <div class="rides-container">
+            <h2>Your Past Rides</h2>
+            <?php if ($result->num_rows > 0) { ?>
+                <div class="rides-form">
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Commuter Name</th>
+                                <th>Ride ID</th>
+                                <th>Pickup Location</th>
+                                <th>Drop-off Location</th>
+                                <th>Ride Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $result->fetch_assoc()) { ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($row['commuter_name']) ?></td>
+                                    <td><?= htmlspecialchars($row['ride_id']) ?></td>
+                                    <td><?= htmlspecialchars($row['pickup']) ?></td>
+                                    <td><?= htmlspecialchars($row['dropoff']) ?></td>
+                                    <td><?= htmlspecialchars($row['ride_date']) ?></td>
+                                    <td><?= htmlspecialchars($row['status']) ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } else { ?>
+                <p>No past rides found for this driver.</p>
+            <?php } ?>
+        </div>
     </div>
+
+    <footer>
+        <p>© 2025 SafariConnect LTD |</p>
+    </footer>
 </body>
 </html>
 
