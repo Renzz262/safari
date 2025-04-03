@@ -328,8 +328,5 @@ if (isset($_GET['view_driver_applications'])) {
         });
 
     </script>
- <footer>
-        <p>&copy; 2025 SafariConnect LTD |</p>
-    </footer>
 </body>
 </html>
